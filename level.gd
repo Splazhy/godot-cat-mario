@@ -2,7 +2,7 @@ extends Node2D
 
 @export var clear_color := Color("#A3B3FE")
 
-@onready var player: Player = $Player
+@onready var player: Player = %Player
 @onready var life_screen_scene := load("res://life_screen.tscn")
 
 func _ready() -> void:
@@ -12,7 +12,6 @@ func _ready() -> void:
 
 func _on_player_died() -> void:
 	GameManager.life -= 1
-	process_mode = Node.PROCESS_MODE_DISABLED
 	await get_tree().create_timer(3.0).timeout
 	var life_screen = life_screen_scene.instantiate()
 	add_sibling(life_screen)

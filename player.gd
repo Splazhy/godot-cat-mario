@@ -20,6 +20,7 @@ var jump_init_velocity: float:
 
 func _ready() -> void:
 	animation.play("default")
+	hurtbox.body_entered.connect(func(_body): die())
 	hurtbox.area_entered.connect(func(_area): die())
 
 
@@ -51,7 +52,8 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-
 func die() -> void:
 	animation.play("die")
+	# Disable physics process to play the die animation without getting overridden.
+	set_physics_process(false)
 	died.emit()
